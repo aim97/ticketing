@@ -5,7 +5,7 @@ const app = App();
 
 app.use(json());
 
-app.use('/api/user/currentuser', async (req, res) => {
+app.use('/api/users/currentuser', async (req, res) => {
   res.json({
     id: 1,
     name: 'John Doe',
