@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { body, validationResult } from 'express-validator';
 
 const router = Router();
@@ -14,7 +14,7 @@ const checks = [
 ]
 
 
-const handleValidation = (req: Request, res:Response, next: Function) => {
+const handleValidation = (req: Request, res:Response, next: NextFunction) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
     return next();
