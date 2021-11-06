@@ -26,7 +26,7 @@ const handleValidation = (req: Request, res:Response, next: Function) => {
 }
 
 
-router.get(
+router.post(
   '/signup',
   checks,
   handleValidation,

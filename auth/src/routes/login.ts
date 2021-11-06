@@ -2,6 +2,6 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get('/login', async (req, res) => {});
+router.post('/login', async (req, res) => {});
 
 export { router as loginRouter };
