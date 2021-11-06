@@ -10,10 +10,10 @@ const app = App();
 
 app.use(json());
 
-app.use(loginRouter);
-app.use(signupRouter);
-app.use(currentUserRouter);
-app.use(logoutRouter);
+app.use('/api/users', loginRouter);
+app.use('/api/users', signupRouter);
+app.use('/api/users', currentUserRouter);
+app.use('/api/users', logoutRouter);
 
 app.listen(3000, () => {
   console.log('Server running on port 3000');
