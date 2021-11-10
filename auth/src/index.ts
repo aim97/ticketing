@@ -6,6 +6,8 @@ import { signupRouter } from './routes/signup';
 import { currentUserRouter } from './routes/current-user';
 import { logoutRouter } from './routes/logout';
 
+import { notFoundHandler } from './middlewares/not-found-handler';
+
 import errorHandler from './middlewares/error-handler';
 
 const app = App();
@@ -16,6 +18,8 @@ app.use('/api/users', loginRouter);
 app.use('/api/users', signupRouter);
 app.use('/api/users', currentUserRouter);
 app.use('/api/users', logoutRouter);
+
+app.all('*', notFoundHandler);
 
 app.use(errorHandler);
 
