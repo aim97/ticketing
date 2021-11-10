@@ -1,4 +1,5 @@
 import App from 'express';
+import 'express-async-errors';
 import { json } from 'body-parser';
 
 import { loginRouter } from './routes/login';
