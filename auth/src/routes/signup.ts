@@ -1,6 +1,8 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { body, validationResult } from 'express-validator';
 
+import { RequestValidationError } from '../errors/RequestValidationError';
+
 const router = Router();
 
 const checks = [
@@ -14,22 +16,20 @@ const checks = [
 ]
 
 
-const handleValidation = (req: Request, res:Response, next: NextFunction) => {
+const validationHandler = (req: Request, res:Response, next: NextFunction) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
     return next();
   }
 
-  return res.status(422).json({
-    errors,
-  });
+  throw new RequestValidationError(errors.array());
 }
 
 
 router.post(
   '/signup',
   checks,
-  handleValidation,
+  validationHandler,
   async (req:Request , res:Response) => {
 
   },
