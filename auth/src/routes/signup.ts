@@ -1,7 +1,7 @@
-import { Router, Request, Response, NextFunction } from 'express';
-import { body, validationResult } from 'express-validator';
+import { Router, Request, Response } from 'express';
+import { body } from 'express-validator';
 
-import { RequestValidationError } from '../errors/RequestValidationError';
+import { validationHandler } from '../middlewares/validation-handler';
 
 const router = Router();
 
@@ -13,18 +13,7 @@ const checks = [
     .trim()
     .isLength({ min: 6 })
     .withMessage('Password must be at least 6 characters long'),
-]
-
-
-const validationHandler = (req: Request, res:Response, next: NextFunction) => {
-  const errors = validationResult(req);
-  if (errors.isEmpty()) {
-    return next();
-  }
-
-  throw new RequestValidationError(errors.array());
-}
-
+];
 
 router.post(
   '/signup',
