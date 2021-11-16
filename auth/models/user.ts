@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
+import { UserAttrs, UserDoc, UserModel } from './user.types';
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema<UserDoc>({
   email: {
     type: String,
     required: true,
@@ -15,6 +16,10 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model('User', userSchema);
+userSchema.statics.build = (attrs: UserAttrs) => {
+  return new User(attrs);
+};
+
+const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
 export default User;
