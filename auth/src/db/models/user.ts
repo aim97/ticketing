@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import { UserAttrs, UserDoc, UserModel } from './user.types';
 
+import { Password } from '../../lib/Password';
+
 const userSchema = new mongoose.Schema<UserDoc>({
   email: {
     type: String,
@@ -28,6 +30,15 @@ const userSchema = new mongoose.Schema<UserDoc>({
 userSchema.statics.build = (attrs: UserAttrs) => {
   return new User(attrs);
 };
+
+userSchema.pre('save', async function (done) {
+  if (this.isModified('password')) {
+    const hash = await Password.toHash(this.get('password'));
+    this.set('password', hash);
+  }
+
+  done();
+});
 
 const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
