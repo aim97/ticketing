@@ -7,6 +7,8 @@ import { signupRouter } from './routes/signup';
 import { currentUserRouter } from './routes/current-user';
 import { logoutRouter } from './routes/logout';
 
+import db from './db';
+
 import { notFoundHandler } from './middlewares/not-found-handler';
 
 import errorHandler from './middlewares/error-handler';
@@ -24,6 +26,17 @@ app.all('*', notFoundHandler);
 
 app.use(errorHandler);
 
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
-});
+const start = async () => {
+  try {
+    await db.connect();
+    console.log('Connected to MongoDb');
+  } catch (err) {
+    console.error(err);
+  }
+
+  app.listen(3000, () => {
+    console.log('Server running on port 3000');
+  });
+};
+    
+start();

@@ -3,6 +3,8 @@ import { body } from 'express-validator';
 
 import { validationHandler } from '../middlewares/validation-handler';
 
+import db from '../db';
+
 const router = Router();
 
 const checks = [
@@ -20,7 +22,12 @@ router.post(
   checks,
   validationHandler,
   async (req:Request , res:Response) => {
+    const { email, password } = req.body;
 
+    const newUser = db.users.build({ email, password });
+    await newUser.save();
+
+    res.status(201).send(newUser);
   },
 );
 
