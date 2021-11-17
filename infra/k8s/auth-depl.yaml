@@ -15,8 +15,6 @@ spec:
       containers:
         - name: auth
           image: aim97/auth
-          ports:
-            - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service
@@ -26,8 +24,7 @@ spec:
   selector:
     app: auth
   ports:
-  - port: 3000
-    targetPort: 3000
-    protocol: TCP
-    name: auth
-
+    - name: auth
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
