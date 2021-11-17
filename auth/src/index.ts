@@ -1,6 +1,7 @@
 import App from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
+import cookieSession from 'cookie-session';
 
 import { loginRouter } from './routes/login';
 import { signupRouter } from './routes/signup';
@@ -14,8 +15,16 @@ import { notFoundHandler } from './middlewares/not-found-handler';
 import errorHandler from './middlewares/error-handler';
 
 const app = App();
+app.set('trust proxy', true); // trust ingress proxy (in dev env where we use a fake certificate)
 
 app.use(json());
+app.use(
+  cookieSession({
+    signed: false,
+    secure: true, // only send cookies over https
+  })
+);
+
 
 app.use('/api/users', loginRouter);
 app.use('/api/users', signupRouter);
