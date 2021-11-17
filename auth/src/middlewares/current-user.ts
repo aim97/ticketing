@@ -15,8 +15,9 @@ export const currentUserHandler = async (req: Request, res: Response, next: Next
   }
   // extract the jwt token from the cookie
   const token = req.session.jwt;
-
-  const user = Token.getPayload(token);
-
-  req.currentUser = user;
+  try {
+    const user = Token.getPayload(token);
+    req.currentUser = user;
+  } catch (err) {} // ignore errors
+  next();
 }
