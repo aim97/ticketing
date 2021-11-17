@@ -11,6 +11,7 @@ import { logoutRouter } from './routes/logout';
 import db from './db';
 
 import { notFoundHandler } from './middlewares/not-found-handler';
+import { currentUserHandler } from './middlewares/current-user';
 
 import errorHandler from './middlewares/error-handler';
 
@@ -25,6 +26,7 @@ app.use(
   })
 );
 
+app.use(currentUserHandler);
 
 app.use('/api/users', loginRouter);
 app.use('/api/users', signupRouter);

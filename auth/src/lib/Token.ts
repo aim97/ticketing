@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 import { AuthenticationError } from '../errors/AuthenticationError';
 
-interface TokenPayload {
+export interface TokenPayload {
   id: string;
   email: string;
 }
