@@ -15,6 +15,12 @@ spec:
       containers:
         - name: auth
           image: aim97/auth
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                SecretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
 ---
 apiVersion: v1
 kind: Service
