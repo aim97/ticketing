@@ -6,9 +6,9 @@ import faker from 'faker';
 let mongoServer: MongoMemoryServer;
 
 beforeAll(async () => {
-  process.env.JWT_KEY = faker.internet.password(length = 32);
+  process.env.JWT_KEY = faker.internet.password();
 
-  mongoServer = new MongoMemoryServer();
+  mongoServer = await MongoMemoryServer.create();
   const mongoUri = mongoServer.getUri();
   await mongoose.connect(mongoUri);
 });
@@ -22,6 +22,6 @@ beforeEach(async () => {
 
 afterAll(async () => {
   // drop all collections
-  mongoServer.stop();
+  await mongoServer.stop();
   await mongoose.disconnect();
 });
