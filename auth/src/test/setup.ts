@@ -1,10 +1,13 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import { app } from '../app';
+import faker from 'faker';
 
 let mongoServer: MongoMemoryServer;
 
 beforeAll(async () => {
+  process.env.JWT_KEY = faker.internet.password(length = 32);
+
   mongoServer = new MongoMemoryServer();
   const mongoUri = mongoServer.getUri();
   await mongoose.connect(mongoUri);
