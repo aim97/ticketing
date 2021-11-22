@@ -7,6 +7,7 @@ let mongoServer: MongoMemoryServer;
 
 beforeAll(async () => {
   process.env.JWT_KEY = faker.internet.password();
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
   mongoServer = await MongoMemoryServer.create();
   const mongoUri = mongoServer.getUri();

@@ -1,5 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { body } from 'express-validator';
+import httpStatus from 'http-status';
+import { Token } from '../lib/Token';
 
 import { validationHandler } from '../middlewares/validation-handler';
 
@@ -27,7 +29,10 @@ router.post(
     const newUser = db.users.build({ email, password });
     await newUser.save();
 
-    res.status(201).send(newUser);
+    const token = Token.generateToken({ id: newUser.id, email: newUser.email });
+    req.session = { jwt: token }; 
+
+    res.status(httpStatus.CREATED).send(newUser);
   },
 );
 

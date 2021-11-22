@@ -20,7 +20,7 @@ app.use(json());
 app.use(
   cookieSession({
     signed: false,
-    secure: true, // only send cookies over https
+    secure: process.env.NODE_ENV !== 'test', // only send cookies over https
   })
 );
 
