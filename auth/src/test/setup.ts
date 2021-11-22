@@ -1,7 +1,21 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
+import request from 'supertest';
 import { app } from '../app';
 import faker from 'faker';
+
+declare global {
+  function getCookies(): Promise<string[]>;
+}
+
+global.getCookies = async ():Promise<string[]> => {
+  const response = await request(app).post('/api/users/signup').send({
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+  }).expect(201);
+
+  return response.get('Set-Cookie');
+};
 
 let mongoServer: MongoMemoryServer;
 
