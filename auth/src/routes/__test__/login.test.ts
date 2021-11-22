@@ -1,6 +1,7 @@
 import httpStatus from 'http-status';
 import request from 'supertest';
 import { app } from '../../app';
+import faker from 'faker';
 
 it('returns 201 for a successful signup', async () => {
   const cookie = await global.getCookies();

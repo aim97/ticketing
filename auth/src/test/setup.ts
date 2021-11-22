@@ -6,6 +6,7 @@ import faker from 'faker';
 
 declare global {
   function getCookies(): Promise<string[]>;
+  function createUser(): Promise<{email: string, password:string}>;
 }
 
 global.getCookies = async ():Promise<string[]> => {
@@ -15,6 +16,17 @@ global.getCookies = async ():Promise<string[]> => {
   }).expect(201);
 
   return response.get('Set-Cookie');
+};
+
+global.createUser = async ():Promise<{email: string, password:string}> => {
+  const user = {
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+  };
+
+  await request(app).post('/api/users/signup').send(user).expect(201);
+
+  return user;
 };
 
 let mongoServer: MongoMemoryServer;
