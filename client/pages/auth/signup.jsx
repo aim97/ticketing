@@ -1,20 +1,26 @@
 import { useState } from 'react';
+import Router from 'next/router';
+
+import useRequest from '../../hooks/use-request';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const user = {
+  const { doRequest, errors } = useRequest({
+    url: '/api/users/signup',
+    method: 'post',
+    body: {
       email,
       password,
-    };
+    },
+    onSuccess: () => Router.push('/'),
+  });
 
-    console.log(user);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await doRequest();
+    console.log(errors);
   };
 
   return (
@@ -38,7 +44,11 @@ const SignUp = () => {
               placeholder="Enter email" 
               onChange={(e) => setEmail(e.target.value)}
             />
-            <p id="email-feedback text-danger"></p>
+            {/* { errors && 
+              <p id="email-feedback text-danger">
+                {errors.find((err) => err.field === 'email').message}
+              </p> 
+            } */}
           </div>
           <div className="form-group">
             <input 
@@ -48,7 +58,12 @@ const SignUp = () => {
               placeholder="Enter password" 
               onChange={(e) => setPassword(e.target.value)}
             />
-            <p id="password-feedback text-danger"></p>
+            {/* { 
+              errors && 
+              <p id="password-feedback text-danger">
+                {errors.find((err) => err.field === 'password').message}
+              </p>
+            } */}
           </div>
           <button className="btn btn-primary btn-bloc w-100 mt-3" id="signup-btn" >
             Sign Up
