@@ -1,0 +1,17 @@
+html, body, #__next{
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333;
+  background-color: #fff;
+  height: 100%;
+}
+
+#__next{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100%;
+}
