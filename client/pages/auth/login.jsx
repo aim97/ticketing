@@ -20,7 +20,6 @@ export default () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await doRequest();
-    console.log(errors);
   };
 
   return (
@@ -33,7 +32,7 @@ export default () => {
             letterSpacing: "3px",
           }}
         >
-          Sign Up
+          Login
         </h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group pb-3">
@@ -66,7 +65,7 @@ export default () => {
             } */}
           </div>
           <button className="btn btn-primary btn-bloc w-100 mt-3" id="signup-btn" >
-            Sign Up
+            Login
           </button>
         </form>
       </div>
