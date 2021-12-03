@@ -1,9 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { body } from 'express-validator';
 import httpStatus from 'http-status';
-import { Token } from '../lib/Token';
-
-import { validationHandler } from '../middlewares/validation-handler';
+import { Token, validationHandler } from '@demo-ticketing/common';
 
 import db from '../db';
 

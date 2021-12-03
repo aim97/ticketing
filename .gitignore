@@ -1,1 +1,6 @@
 keys
+**/node_modules 
+**/build
+**/dist
+**/docs
+**/.next

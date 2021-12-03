@@ -4,11 +4,7 @@ import httpStatus from 'http-status';
 
 import db from '../db';
 
-import { Password } from '../lib/Password';
-import { Token } from '../lib/Token';
-
-import { validationHandler } from '../middlewares/validation-handler';
-import { AuthenticationError } from '../errors/AuthenticationError';
+import { Password, Token, validationHandler, AuthenticationError } from '@demo-ticketing/common';
 
 const router = Router();
 

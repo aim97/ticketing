@@ -8,10 +8,7 @@ import { signupRouter } from './routes/signup';
 import { currentUserRouter } from './routes/current-user';
 import { logoutRouter } from './routes/logout';
 
-import { notFoundHandler } from './middlewares/not-found-handler';
-import { currentUserHandler } from './middlewares/current-user';
-
-import errorHandler from './middlewares/error-handler';
+import { notFoundHandler, currentUserHandler, errorHandler } from '@demo-ticketing/common';
 
 const app = App();
 app.set('trust proxy', true); // trust ingress proxy (in dev env where we use a fake certificate)
