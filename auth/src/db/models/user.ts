@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { UserAttrs, UserDoc, UserModel } from './user.types';
 
-import { Password } from '../../lib/Password';
+import { Password } from '@demo-ticketing/common';
 
 const userSchema = new mongoose.Schema<UserDoc>({
   email: {
