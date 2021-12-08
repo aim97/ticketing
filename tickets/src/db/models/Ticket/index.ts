@@ -11,7 +11,7 @@ const ticketSchema = new mongoose.Schema<TicketDoc>({
     required: true,
   },
   ownerId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     required: true,
   }
 }, {
@@ -19,6 +19,7 @@ const ticketSchema = new mongoose.Schema<TicketDoc>({
     transform(doc, ret) {
       ret.id = ret._id;
       delete ret._id;
+      delete ret.__v;
     }
   }
 });

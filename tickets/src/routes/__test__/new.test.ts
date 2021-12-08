@@ -10,7 +10,7 @@ it('has a route at POST:/api/tickets', async () => {
 
 it('requires authentication, and returns 401 unauthorized when a the request doesn\'t have authorization token', async() => {
   const res = await request(app).post('/api/tickets/');
-  expect(res.status).not.toBe(404);
+  expect(res.status).toBe(401);
 });
 
 it('returns bad request when the ticket is invalid', async () => {

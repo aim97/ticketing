@@ -11,7 +11,7 @@ declare global {
 global.getCookies = () => {
   const user = {
     email: faker.internet.email(),
-    id: mongoose.Types.ObjectId.generate().toString()
+    id: mongoose.Types.ObjectId.generate().toString('hex')
   };
   const token = Token.generateToken(user);
 

@@ -3,13 +3,13 @@ import mongoose from 'mongoose';
 export interface TicketAttrs {
   title: string;
   price: number;
-  ownerId: mongoose.Schema.Types.ObjectId;
+  ownerId: string;
 };
 
 export interface TicketDoc extends mongoose.Document {
   title: string;
   price: number;
-  ownerId: mongoose.Schema.Types.ObjectId;
+  ownerId: string;
 };
 
 export interface TicketModel extends mongoose.Model<TicketDoc> {
