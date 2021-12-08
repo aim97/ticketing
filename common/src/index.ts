@@ -4,6 +4,7 @@ export * from './errors/DatabaseError';
 export * from './errors/DatabaseValidationError';
 export * from './errors/RequestValidationError';
 export * from './errors/RouteNotFoundError';
+export * from './errors/NotFoundError';
 
 export * from './middlewares/current-user';
 export * from './middlewares/error-handler';
