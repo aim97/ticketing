@@ -1,6 +1,32 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import faker from 'faker';
+import { Token } from '@demo-ticketing/common';
+
+declare global {
+  function getCookies(): string[];
+  // function createTicket(): Promise<{title: string, price: number}>;
+};
+
+global.getCookies = () => {
+  const user = {
+    email: faker.internet.email(),
+    id: mongoose.Types.ObjectId.generate().toString()
+  };
+  const token = Token.generateToken(user);
+
+  const cookie = { jwt: token};
+
+  const cookieJSON = JSON.stringify(cookie);
+
+  const base64 = Buffer.from(cookieJSON).toString('base64');
+
+  const cookieHeader = [
+    `express:sess=${base64}`
+  ];
+
+  return cookieHeader;
+};
 
 // before all
 // 1. initialize env variables for testing
@@ -20,8 +46,8 @@ beforeAll(async () => {
 // 1. clear collections
 beforeEach(async () => {
   const cols = await mongoose.connection.db.collections();
-  cols.forEach((col) => {
-    col.drop();
+  cols.forEach(async (col) => {
+    await col.deleteMany({});
   })
 });
 
