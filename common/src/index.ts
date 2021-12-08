@@ -10,6 +10,7 @@ export * from './middlewares/error-handler';
 export * from './middlewares/mongo-error-handler';
 export * from './middlewares/not-found-handler';
 export * from './middlewares/validation-handler';
+export * from './middlewares/require-auth';
 
 export * from './lib/Password';
 export * from './lib/Token';
