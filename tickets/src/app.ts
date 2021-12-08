@@ -1,4 +1,6 @@
-import express from 'express';  
+import express from 'express';
+import 'express-async-errors';
+
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { currentUserHandler, notFoundHandler, errorHandler } from '@demo-ticketing/common';
