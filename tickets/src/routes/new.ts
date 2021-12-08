@@ -3,7 +3,6 @@ import httpStatus from 'http-status';
 import { requireAuth, validationHandler } from '@demo-ticketing/common';
 import { body } from 'express-validator';
 import { db } from '../db';
-import mongoose from 'mongoose'
 
 const router = Router();
 
