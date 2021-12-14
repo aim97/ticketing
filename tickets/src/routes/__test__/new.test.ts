@@ -1,7 +1,7 @@
 import request from 'supertest';
 import faker from 'faker';
 
-import app from '../../app';
+import { app } from '../../app';
 
 it('has a route at POST:/api/tickets', async () => {
   const res = await request(app).post('/api/tickets/');

@@ -10,7 +10,6 @@ router.get(
   validationHandler,
   async (req: Request, res: Response) => {
     const ticket = await db.Ticket.findById(req.params.id!);
-
     if (!ticket) {
       throw new NotFoundError('Ticket not found');
     }
@@ -19,4 +18,4 @@ router.get(
   },
 )
 
-export { router as createTicketRouter }
+export { router as getTicketRouter }

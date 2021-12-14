@@ -1,11 +1,14 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import faker from 'faker';
+import request from 'supertest'
 import { Token } from '@demo-ticketing/common';
+
+import { app } from '../app';
 
 declare global {
   function getCookies(): string[];
-  // function createTicket(): Promise<{title: string, price: number}>;
+  function createTicket(): Promise<{id: string, title: string, price: number, ownerId: string}>;
 };
 
 global.getCookies = () => {
@@ -26,6 +29,20 @@ global.getCookies = () => {
   ];
 
   return cookieHeader;
+};
+
+global.createTicket = async () => {
+  const res = await request(app)
+    .post('/api/tickets')
+    .send({
+      title: faker.lorem.word(10),
+      price: faker.datatype.float({min: 0, precision: 0.01}) //* the max is -1 so the price is always negative
+    })
+    .set('Cookie', global.getCookies())
+    .expect(201);
+
+  const ticket = res.body as {id: string, title: string, price: number, ownerId: string};
+  return ticket;
 };
 
 // before all

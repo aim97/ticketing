@@ -6,6 +6,7 @@ import cookieSession from 'cookie-session';
 import { currentUserHandler, notFoundHandler, errorHandler } from '@demo-ticketing/common';
 
 import { createTicketRouter } from './routes/new';
+import { getTicketRouter } from './routes/show';
 
 const app = express();
 
@@ -19,8 +20,9 @@ app.use(cookieSession({
 app.use(currentUserHandler);
 
 app.use(createTicketRouter);
+app.use(getTicketRouter);
 
 app.all('*', notFoundHandler);
 app.use(errorHandler);
 
-export default app;
+export { app } ;
