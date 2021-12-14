@@ -8,7 +8,7 @@ import { app } from '../app';
 
 declare global {
   function getCookies(): string[];
-  function createTicket(): Promise<{id: string, title: string, price: number, ownerId: string}>;
+  function createTicket(cookies?: string[]): Promise<{id: string, title: string, price: number, ownerId: string}>;
 };
 
 global.getCookies = () => {
@@ -31,14 +31,14 @@ global.getCookies = () => {
   return cookieHeader;
 };
 
-global.createTicket = async () => {
+global.createTicket = async (cookies = global.getCookies()) => {
   const res = await request(app)
     .post('/api/tickets')
     .send({
       title: faker.lorem.word(10),
       price: faker.datatype.float({min: 0, precision: 0.01}) //* the max is -1 so the price is always negative
     })
-    .set('Cookie', global.getCookies())
+    .set('Cookie', cookies)
     .expect(201);
 
   const ticket = res.body as {id: string, title: string, price: number, ownerId: string};
