@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import httpStatus from 'http-status';
-import { requireAuth, validationHandler } from '@demo-ticketing/common';
+import { requireAuth, validationHandler, NotFoundError, RequestValidationError } from '@demo-ticketing/common';
 import { body } from 'express-validator';
 import { db } from '../db';
 
@@ -8,10 +8,12 @@ const router = Router();
 
 const checks = [
   body('title')
+    .optional()
     .notEmpty()
     .withMessage('Title can\'t be empty')
   ,
   body('price')
+    .optional()
     .isFloat({ gt: 0})
     .withMessage('Price must be a number')
 ]
@@ -27,17 +29,23 @@ router.patch(
     const updates = req.body;
     if (!updates.id) delete updates.id;
     if (!updates.title) delete updates.title;
-    console.log(updates);
 
-    const ticket = await db.Ticket.updateOne(
+    const result = await db.Ticket.findOneAndUpdate(
       {
         id: ticketId,
         ownerId: req.currentUser?.id,
       },
-      updates
+      updates,
+      {
+        returnNewDocument: true,
+      }
     );
 
-    res.status(httpStatus.CREATED).send(ticket);
+    if (!result) {
+      throw new NotFoundError('Ticket not found');
+    }
+
+    res.status(httpStatus.OK).send(result);
   },
 )
 

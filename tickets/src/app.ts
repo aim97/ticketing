@@ -8,6 +8,7 @@ import { currentUserHandler, notFoundHandler, errorHandler } from '@demo-ticketi
 import { createTicketRouter } from './routes/new';
 import { getTicketRouter } from './routes/show';
 import { getTicketsRouter } from './routes/';
+import { updateTicketRouter } from './routes/update';
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(currentUserHandler);
 app.use(createTicketRouter);
 app.use(getTicketRouter);
 app.use(getTicketsRouter);
+app.use(updateTicketRouter);
 
 app.all('*', notFoundHandler);
 app.use(errorHandler);
